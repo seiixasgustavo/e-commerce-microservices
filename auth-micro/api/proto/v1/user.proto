@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package v1;
+
+service User {
+  rpc Create(UserRequest) returns (Response) {}
+  rpc Update(UserIdRequest) returns (Response) {}
+  rpc Delete(IdRequest) returns (Response) {}
+  rpc ChangePassword(PasswordRequest) returns (Response) {}
+  rpc FindByPk(IdRequest) returns (UserResponse) {}
+  rpc FindByUsername(UsernameRequest) returns (UserResponse) {}
+}
+
+message UserStruct {
+  uint64 ID = 1;
+  string Username = 2;
+  string Email = 3;
+  string Password = 4;
+}
+
+// Requests
+message UserRequest { UserStruct user = 1; }
+message IdRequest { uint64 ID = 1; }
+message UsernameRequest { string Username = 1; }
+message UserIdRequest {
+  UserStruct user = 1;
+  uint64 ID = 2;
+}
+message PasswordRequest {
+  uint64 ID = 1;
+  string Password = 2;
+}
+
+// Responses
+message Response { bool Status = 1; }
+message UserResponse {
+  bool Status = 1;
+  UserStruct user = 2;
+}
