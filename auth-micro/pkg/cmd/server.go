@@ -6,6 +6,9 @@ import (
 	"strconv"
 
 	"github.com/jinzhu/gorm"
+
+	//mysql driver
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/joho/godotenv"
 	"github.com/seiixasgustavo/e-commerce-microservices/auth-micro/pkg/logger"
 	"github.com/seiixasgustavo/e-commerce-microservices/auth-micro/pkg/protocol/grpc"
@@ -28,8 +31,7 @@ type Config struct {
 func RunServer() error {
 	ctx := context.Background()
 
-	fmt.Println("Hey")
-	envErr := godotenv.Load()
+	envErr := godotenv.Load("../../.env")
 
 	if envErr != nil {
 		return fmt.Errorf("Error while loading .env file: %v", envErr)
@@ -67,7 +69,7 @@ func RunServer() error {
 		return fmt.Errorf("Error while connection to database: %v", err)
 	}
 
-	fmt.Println("Connecting to the database...")
+	logger.Log.Info("Connecting to the database...")
 	defer db.Close()
 
 	return grpc.RunServer(ctx, config.GRPCPort, db)

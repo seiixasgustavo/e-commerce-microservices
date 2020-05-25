@@ -50,7 +50,7 @@ func (u *User) Create(db *gorm.DB) error {
 // Update an instance of the user to the database
 func (u *User) Update(db *gorm.DB, id uint) error {
 	var user User
-	err := db.Where("id = ?", u.ID).First(&user).Error
+	err := db.Where("id = ?", id).First(&user).Error
 
 	if err != nil {
 		return err
@@ -59,7 +59,11 @@ func (u *User) Update(db *gorm.DB, id uint) error {
 	user.Username = u.Username
 	user.Email = u.Email
 	user.Password = u.Password
-	user.hash()
+	hashErr := user.hash()
+
+	if hashErr != nil {
+		return hashErr
+	}
 
 	saveErr := db.Save(&user).Error
 
@@ -90,7 +94,11 @@ func (u *User) ChangePassword(db *gorm.DB, id uint) error {
 	}
 
 	user.Password = u.Password
-	user.hash()
+
+	hashErr := user.hash()
+	if hashErr != nil {
+		return hashErr
+	}
 
 	saveErr := db.Save(&user).Error
 	if saveErr != nil {

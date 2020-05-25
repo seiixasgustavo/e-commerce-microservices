@@ -68,6 +68,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/seiixasgustavo/e-commerce-microservices v0.0.0-20200522022655-8200f877f623 h1:n7avwUF9xyO0aXRC8lzhFM0MRplQK/PCLhHChyW32IE=
+github.com/seiixasgustavo/e-commerce-microservices v0.0.0-20200524233949-967ab1076f17 h1:b/VpAKKr/axKxmhS5lA59dryNxEg+i+uFmLEaCl7J1s=
+github.com/seiixasgustavo/e-commerce-microservices v0.0.0-20200524233949-967ab1076f17/go.mod h1:8WoLoMdW6L399SqtPwqimz6Phs4EA8XnvJptwHEfDdM=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
