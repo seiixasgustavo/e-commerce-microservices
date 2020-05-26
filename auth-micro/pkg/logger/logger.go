@@ -43,12 +43,30 @@ func Init(lvl int, timeFormat string) error {
 			ecfg.EncodeTime = customTimeEncoder
 			useCustomTimeFormat = true
 		}
-		consoleEncoder := zapcore.NewJSONEncoder(ecfg)
+		consoleEncoder := zapcore.NewConsoleEncoder(ecfg)
 
-		core := zapcore.NewTee(
-			zapcore.NewCore(consoleEncoder, consoleErrors, highPriority),
-			zapcore.NewCore(consoleEncoder, consoleInfos, lowPriority),
-		)
+		//File Output part
+		logInfo, fileErr := os.Create("../../log/info.log")
+		writerSyncFile := zapcore.AddSync(logInfo)
+
+		errInfo, fileErr2 := os.Create("../../log/errors.log")
+		writerSyncErr := zapcore.AddSync(errInfo)
+
+		var core zapcore.Core
+
+		if fileErr != nil || fileErr2 != nil {
+			core = zapcore.NewTee(
+				zapcore.NewCore(consoleEncoder, consoleErrors, highPriority),
+				zapcore.NewCore(consoleEncoder, consoleInfos, lowPriority),
+			)
+		} else {
+			core = zapcore.NewTee(
+				zapcore.NewCore(consoleEncoder, consoleErrors, highPriority),
+				zapcore.NewCore(consoleEncoder, consoleInfos, lowPriority),
+				zapcore.NewCore(consoleEncoder, writerSyncFile, lowPriority),
+				zapcore.NewCore(consoleEncoder, writerSyncErr, highPriority),
+			)
+		}
 
 		Log = zap.New(core)
 		zap.RedirectStdLog(Log)
